@@ -3,7 +3,7 @@ amt_domain_pfx_password='HeyH0Password!'
 amt_device_current_password='admin'
 amt_device_new_password='HeyH0Password!'
 
-mkdir -p amt-ca
+install -d -m 700 amt-ca
 pushd amt-ca >/dev/null
 
 # Create AMT domain certificate signing request.
