@@ -101,6 +101,7 @@ At the [OpenAMT UI](https://mps.amt.test):
 
 # Reference
 
+* [rgl Intel AMT Notes](https://github.com/rgl/intel-amt-notes)
 * [Intel AMT SDK](https://software.intel.com/sites/manageability/AMT_Implementation_and_Reference_Guide/default.htm)
   * [Deprecated and Deleted Features](https://software.intel.com/sites/manageability/AMT_Implementation_and_Reference_Guide/default.htm?turl=WordDocuments%2Fdeprecatedanddeletedfeatures.htm)
   * [Setup and Configuration of Intel AMT](https://software.intel.com/sites/manageability/AMT_Implementation_and_Reference_Guide/default.htm?turl=WordDocuments%2Fsetupandconfigurationofintelamt.htm)
