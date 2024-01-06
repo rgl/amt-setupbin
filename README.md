@@ -9,6 +9,7 @@ This creates:
 * A private AMT CA for the `amt.test` AMT domain.
 * The AMT domain provisioning certificate.
 * The `Setup.bin` AMT configuration file.
+* The `Setup.bin.img` USB key disk image with the AMT configuration file.
 
 # Usage
 
@@ -54,7 +55,7 @@ Create the AMT CA, the AMT provisioning certificate, and the `Setup.bin` AMT con
 
 Create the [new `amt.test` OpenAMT Domain](https://mps.amt.test/domains/new) and import the `amt-ca/amt.test.pfx` file.
 
-Copy the `amt-ca/Setup.bin` file to the root directory of an empty FAT32 USB key.
+Burn the `amt-ca/Setup.bin.img` disk image into a USB key, or copy the `amt-ca/Setup.bin` file to the root directory of an empty FAT32 USB key.
 
 At each AMT device:
 

@@ -13,9 +13,9 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
       - name: Build
-        run: |
-          mkdir dist
-          bun build . --target bun --minify --outfile dist/amt-setupbin.js
+        run: bun build . --target bun --minify --outfile dist/amt-setupbin.js
+      - name: Test
+        run: ./create-provisioning-certificate.sh
       - name: Upload artifacts
         if: success() || failure()
         uses: actions/upload-artifact@v4

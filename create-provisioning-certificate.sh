@@ -4,7 +4,7 @@ amt_device_current_password='admin'
 amt_device_new_password='HeyH0Password!'
 
 mkdir -p amt-ca
-pushd amt-ca
+pushd amt-ca >/dev/null
 
 # Create AMT domain certificate signing request.
 cat >"$amt_domain-crt.conf" <<EOF
@@ -75,7 +75,7 @@ amt_ca_certificate_hash="$(
     | perl -lne '/sha256 Fingerprint=([0-9A-Fa-f:]+)/ && print lc($1) =~ s/://rg')"
 
 # go back to the original directory.
-popd
+popd >/dev/null
 
 # Create the AMT configuration file.
 bun . \
@@ -85,3 +85,15 @@ bun . \
   --pki-dns-suffix "$amt_domain" \
   --certificate "$amt_ca_certificate_hash AMT CA" \
   --path amt-ca/Setup.bin
+
+# create a disk image with the AMT configuration file.
+pushd amt-setupbin-img >/dev/null
+rm -f ../amt-ca/Setup.bin.img
+docker build -t amt-setupbin-img .
+docker run --rm \
+  -i \
+  -u "$(id -u):$(id -g)" \
+  -v "$PWD/../amt-ca:/host:rw" \
+  -w /host \
+  amt-setupbin-img
+popd >/dev/null
