@@ -1,0 +1,11 @@
+{
+    "name": "amt-setupbin",
+    "description": "create a intel amt setup.bin file",
+    "type": "module",
+    "version": "0.1.0",
+    "license": "MIT",
+    "main": "main.js",
+    "dependencies": {
+        "commander": "^11.1.0"
+    }
+}
