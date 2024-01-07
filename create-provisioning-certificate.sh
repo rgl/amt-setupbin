@@ -83,7 +83,7 @@ popd >/dev/null
 # build the binaries.
 docker build -t amt-setupbin .
 
-# Create the AMT configuration file.
+# Create the Setup.bin AMT configuration file and the Setup.bin.img disk image.
 docker run --rm \
   -i \
   -u "$(id -u):$(id -g)" \
@@ -95,13 +95,3 @@ docker run --rm \
   --new-password "$amt_device_new_password" \
   --pki-dns-suffix "$amt_domain" \
   --certificate "$amt_ca_certificate_hash AMT CA"
-
-# create a disk image with the AMT configuration file.
-rm -f amt-ca/Setup.bin.img
-docker run --rm \
-  -i \
-  -u "$(id -u):$(id -g)" \
-  -v "$PWD/amt-ca:/host:rw" \
-  -w /host \
-  --entrypoint amt-setupbin-img \
-  amt-setupbin

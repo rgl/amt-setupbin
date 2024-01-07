@@ -43,6 +43,13 @@ func main() {
 		},
 	}
 
+	err = os.Remove(*setupBinImgPath)
+	if err != nil {
+		if !os.IsNotExist(err) {
+			log.Panic(err)
+		}
+	}
+
 	disk, err := diskfs.Create(*setupBinImgPath, int64(diskSize), diskfs.Raw, diskfs.SectorSize(sectorSize))
 	if err != nil {
 		log.Panic(err)

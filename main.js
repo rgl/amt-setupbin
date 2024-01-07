@@ -49,6 +49,26 @@ function writeAmtSetupBin(setupBinPath, variables) {
     fs.writeFileSync(setupBinPath, data, "binary");
 }
 
+async function writeAmtSetupBinImg(setupBinPath, setupBinImgPath) {
+    const p = Bun.spawn([
+        "amt-setupbin-img",
+        `-path=${setupBinPath}`,
+        `-img-path=${setupBinImgPath}`
+    ], {
+        stdin: null,
+        stdout: "inherit",
+        stderr: "inherit",
+    });
+    try {
+        const exitCode = await p.exited;
+        if (exitCode !== 0) {
+            throw Error(`amt-setupbin-img failed with exit code ${exitCode}`);
+        }
+    } finally {
+        p.unref();
+    }
+}
+
 function readAmtSetupBin(data) {
     const decoded = AmtSetupBinDecode(data);
     if (!decoded) {
@@ -138,6 +158,9 @@ async function main(options) {
         log(`Dumping the created AMT Setup.bin...`);
         console.log(setup);
     }
+
+    log(`Creating the AMT Setup.bin.img disk image file at ${options.path}.img...`);
+    await writeAmtSetupBinImg(options.path, `${options.path}.img`);
 }
 
 program
