@@ -7,19 +7,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: '1.0.21'
-      - name: Install dependencies
-        run: bun install --frozen-lockfile
       - name: Build
-        run: bun build . --target bun --minify --outfile dist/amt-setupbin.js
+        run: docker build -t amt-setupbin .
       - name: Test
         run: ./create-provisioning-certificate.sh
-      - name: Upload artifacts
-        if: success() || failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: artifacts
-          path: |
-            dist/*

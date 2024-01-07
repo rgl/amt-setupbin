@@ -13,8 +13,6 @@ This creates:
 
 # Usage
 
-Install [`bun`](https://bun.sh).
-
 Install `openssl`.
 
 Install `docker` and `docker compose`.

@@ -1,3 +1,6 @@
+#!/bin/bash
+set -euo pipefail
+
 amt_domain='amt.test'
 amt_domain_pfx_password='HeyH0Password!'
 amt_device_current_password='admin'
@@ -77,23 +80,28 @@ amt_ca_certificate_hash="$(
 # go back to the original directory.
 popd >/dev/null
 
+# build the binaries.
+docker build -t amt-setupbin .
+
 # Create the AMT configuration file.
-bun . \
+docker run --rm \
+  -i \
+  -u "$(id -u):$(id -g)" \
+  -v "$PWD/amt-ca:/host:rw" \
+  -w /host \
+  amt-setupbin \
   --debug \
   --current-password "$amt_device_current_password" \
   --new-password "$amt_device_new_password" \
   --pki-dns-suffix "$amt_domain" \
-  --certificate "$amt_ca_certificate_hash AMT CA" \
-  --path amt-ca/Setup.bin
+  --certificate "$amt_ca_certificate_hash AMT CA"
 
 # create a disk image with the AMT configuration file.
-pushd amt-setupbin-img >/dev/null
-rm -f ../amt-ca/Setup.bin.img
-docker build -t amt-setupbin-img .
+rm -f amt-ca/Setup.bin.img
 docker run --rm \
   -i \
   -u "$(id -u):$(id -g)" \
-  -v "$PWD/../amt-ca:/host:rw" \
+  -v "$PWD/amt-ca:/host:rw" \
   -w /host \
-  amt-setupbin-img
-popd >/dev/null
+  --entrypoint amt-setupbin-img \
+  amt-setupbin

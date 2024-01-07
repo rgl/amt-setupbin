@@ -1,0 +1,7 @@
+*
+!package.json
+!bun.lockb
+!*.cjs
+!*.js
+!amt-setupbin-img/*.go
+!amt-setupbin-img/go.*
