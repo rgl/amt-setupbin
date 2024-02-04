@@ -59,7 +59,8 @@ At each AMT device:
 
 1. Plug-in the USB key, (re)boot the device, then let AMT be configured from the USB key.
     * If you end-up at the OS, you can force a reboot into the firmware with:
-      * `sudo systemctl reboot --firmware-setup`
+      * Linux OS: `sudo systemctl reboot --firmware-setup`
+      * Windows OS: `shutdown /r /fw`
 2. At the device OS, using the rpc tool, active AMT with:
     * `sudo ./rpc activate -u wss://mps.amt.test/activate -n -v -profile acm`
     * **NB** The `-n` flag will blindly trust the `mps.amt.test` certificate.
