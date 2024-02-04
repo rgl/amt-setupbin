@@ -61,7 +61,7 @@ At each AMT device:
     * If you end-up at the OS, you can force a reboot into the firmware with:
       * `sudo systemctl reboot --firmware-setup`
 2. At the device OS, using the rpc tool, active AMT with:
-    * `sudo ./rpc activate -u wss://mps.amt.test/activate -n -profile acm`
+    * `sudo ./rpc activate -u wss://mps.amt.test/activate -n -v -profile acm`
     * **NB** The `-n` flag will blindly trust the `mps.amt.test` certificate.
 3. At the device OS, using the rpc tool, verify the AMT state and certificates:
     * `sudo ./rpc amtinfo -password 'HeyH0Password!' -cert`
